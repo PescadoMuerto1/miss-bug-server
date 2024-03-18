@@ -18,11 +18,11 @@ function query() {
 function save(bug) {
     if (bug._id) {
         const bugIdx = bugs.findIndex(_bug => _bug._id === bug._id)
-        cars[bugIdx] = bug
+        bugs[bugIdx] = bug
     }
     else {
         bug._id = utilService.makeId()
-        bug.desc = utilService.makeLorem()
+        bug.createdAt = Date.now()
         bugs.unshift(bug)
     }
     return _saveBugsToFile().then(() => bug)
