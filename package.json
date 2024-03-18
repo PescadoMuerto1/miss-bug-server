@@ -1,0 +1,21 @@
+{
+  "name": "miss-bug-serever",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon --ignore \"./data\" server.js"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.3",
+    "nodemon": "^3.1.0"
+  }
+}
