@@ -17,14 +17,14 @@
         "_id": "abc123",
         "title": "Cannot save a new car",
         "desc": "problem when clicking Save",
-        "severity": 0,
+        "severity": 4,
         "createdAt": 1542107359454
     },
     {
         "_id": "a45dd123",
         "title": "Cannot save a new car",
         "desc": "bug.desc",
-        "severity": 0,
+        "severity": 3,
         "createdAt": 1542107359454
     },
     {

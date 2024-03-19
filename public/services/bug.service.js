@@ -12,11 +12,13 @@ export const bugService = {
     getById,
     save,
     remove,
+    getDefaultFilter,
+    getFilterFromParams
 }
 
 
-function query() {
-    return axios.get(BASE_URL).then(res => res.data)
+function query(filterBy = getDefaultFilter()) {
+    return axios.get(BASE_URL, {params: filterBy}).then(res => res.data)
 }
 function getById(bugId) {
     return axios.get(BASE_URL + bugId).then(res => res.data)
@@ -35,8 +37,17 @@ function save(bug) {
     return axios.get(BASE_URL + 'save' + queryParams).then(res => res.data)
 }
 
+function getDefaultFilter() {
+    return { txt: '', severity: 0 }
+}
 
-
+function getFilterFromParams(searchParams = {}) {
+    const defaultFilter = getDefaultFilter()
+    return {
+        txt: searchParams.get('txt') || defaultFilter.txt,
+        severity: searchParams.get('severity') || defaultFilter.severity,
+    }
+}
 
 function _createBugs() {
     let bugs = utilService.loadFromStorage(STORAGE_KEY)
