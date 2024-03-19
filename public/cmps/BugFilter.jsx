@@ -9,7 +9,7 @@ export function BugFilter({ filterBy, onSetFilter }) {
 
   function handleChange({ target }) {
     let { value, name: field, type } = target
-		if (type === 'number') value = +value
+    if (type === 'number') value = +value
     setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, [field]: value }))
   }
 
@@ -19,7 +19,7 @@ export function BugFilter({ filterBy, onSetFilter }) {
     onSetFilter(filterByToEdit)
   }
 
-  const { txt, severity } = filterByToEdit
+  const { txt, severity, label } = filterByToEdit
   return (
     <section className="bug-filter full main-layout">
       <h2>Filter Our Bugs</h2>
@@ -44,6 +44,19 @@ export function BugFilter({ filterBy, onSetFilter }) {
           id="severity"
           placeholder="By Severity"
         />
+
+        <label htmlFor="label">Label:</label>
+        <select id="label"
+          value={label}
+          onChange={handleChange}
+          name="label"
+          placeholder="By Label"
+        >
+          <option value="">none</option>
+          <option value="critical">critical</option>
+          <option value="dev-branch">dev-branch</option>
+          <option value="need-CR">need-CR</option>
+        </select>
 
         <button>Filter Bugs</button>
       </form>

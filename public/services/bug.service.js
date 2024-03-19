@@ -38,7 +38,7 @@ function save(bug) {
 }
 
 function getDefaultFilter() {
-    return { txt: '', severity: 0 }
+    return { txt: '', severity: 0, label: '' }
 }
 
 function getFilterFromParams(searchParams = {}) {
@@ -46,6 +46,7 @@ function getFilterFromParams(searchParams = {}) {
     return {
         txt: searchParams.get('txt') || defaultFilter.txt,
         severity: searchParams.get('severity') || defaultFilter.severity,
+        label: searchParams.get('label') || defaultFilter.label,
     }
 }
 

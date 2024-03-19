@@ -21,6 +21,9 @@ function query(filterBy) {
     if (filterBy.severity) {
         bugToReturn = bugToReturn.filter(bug => bug.severity >= filterBy.severity)
     }
+    if (filterBy.label) {
+        bugToReturn = bugToReturn.filter(({ labels }) => labels.includes(filterBy.label))
+    }
     // console.log(bugToReturn);
     return Promise.resolve(bugToReturn)
 }
@@ -46,13 +49,13 @@ function getById(id) {
 
 function remove(id) {
     const bugIdx = bugs.findIndex(bug => bug._id === id)
-    if(bugIdx < 0) return Promise.reject('bug does not exist')
+    if (bugIdx < 0) return Promise.reject('bug does not exist')
     bugs.splice(bugIdx, 1)
     return _saveBugsToFile()
 }
 
 function _saveBugsToFile() {
-   
+
     return new Promise((resolve, reject) => {
         const data = JSON.stringify(bugs, null, 4)
         fs.writeFile('data/bug.json', data, (err) => {
