@@ -12,13 +12,15 @@ app.get('/', (req, res) => res.send('Hello there'))
 app.listen(3031, () => console.log('Server ready at port 3031'))
 
 app.get('/api/bug', (req, res) => {
-    console.log('req.query:', req.query)
+    // console.log('req.query:', req.query)
     const filterBy = {
         txt: req.query.txt,
-        severity: req.query.severity,
-        label: req.query.label
+        severity: +req.query.severity,
+        label: req.query.label,
+        sortBy: req.query.sortBy,
+        sortDir: +req.query.sortDir
     }
-    console.log('filterBy:', filterBy)
+    // console.log('filterBy:', filterBy)
     bugService.query(filterBy)
         .then(bugs => res.send(bugs))
         .catch(err => {

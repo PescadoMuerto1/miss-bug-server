@@ -10,6 +10,7 @@ export function BugFilter({ filterBy, onSetFilter }) {
   function handleChange({ target }) {
     let { value, name: field, type } = target
     if (type === 'number') value = +value
+    if (type === 'checkbox') value  = value * -1
     setFilterByToEdit((prevFilterBy) => ({ ...prevFilterBy, [field]: value }))
   }
 
@@ -19,7 +20,7 @@ export function BugFilter({ filterBy, onSetFilter }) {
     onSetFilter(filterByToEdit)
   }
 
-  const { txt, severity, label } = filterByToEdit
+  const { txt, severity, label, sortBy, sortDir } = filterByToEdit
   return (
     <section className="bug-filter full main-layout">
       <h2>Filter Our Bugs</h2>
@@ -50,13 +51,34 @@ export function BugFilter({ filterBy, onSetFilter }) {
           value={label}
           onChange={handleChange}
           name="label"
-          placeholder="By Label"
         >
           <option value="">none</option>
           <option value="critical">critical</option>
           <option value="dev-branch">dev-branch</option>
           <option value="need-CR">need-CR</option>
         </select>
+
+        <label htmlFor="sort">sort by:</label>
+        <select id="sort"
+          value={sortBy}
+          onChange={handleChange}
+          name="sortBy"
+        >
+          <option value="">none</option>
+          <option value="title">title</option>
+          <option value="severity">severity</option>
+          <option value="createdAt">create time</option>
+        </select>
+
+        <label htmlFor="sortDir">descending:</label>
+        <input
+          value={sortDir}
+          onChange={handleChange}
+          type="checkbox"
+          name="sortDir"
+          id="sortDir"
+          checked={sortDir > 0 ? false : true}
+        />
 
         <button>Filter Bugs</button>
       </form>

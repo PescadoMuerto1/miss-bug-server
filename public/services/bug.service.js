@@ -5,8 +5,6 @@ import { utilService } from './util.service.js'
 const STORAGE_KEY = 'bugDB'
 const BASE_URL = '/api/bug/'
 
-_createBugs()
-
 export const bugService = {
     query,
     getById,
@@ -16,10 +14,10 @@ export const bugService = {
     getFilterFromParams
 }
 
-
 function query(filterBy = getDefaultFilter()) {
     return axios.get(BASE_URL, {params: filterBy}).then(res => res.data)
 }
+
 function getById(bugId) {
     return axios.get(BASE_URL + bugId).then(res => res.data)
 }
@@ -38,7 +36,7 @@ function save(bug) {
 }
 
 function getDefaultFilter() {
-    return { txt: '', severity: 0, label: '' }
+    return { txt: '', severity: 0, label: '', sortBy: '', sortDir: -1 }
 }
 
 function getFilterFromParams(searchParams = {}) {
@@ -47,37 +45,7 @@ function getFilterFromParams(searchParams = {}) {
         txt: searchParams.get('txt') || defaultFilter.txt,
         severity: searchParams.get('severity') || defaultFilter.severity,
         label: searchParams.get('label') || defaultFilter.label,
+        sortBy: searchParams.get('sortBy') || defaultFilter.sortBy,
+        sortDir: searchParams.get('sortDir') || defaultFilter.sortDir,
     }
-}
-
-function _createBugs() {
-    let bugs = utilService.loadFromStorage(STORAGE_KEY)
-    if (!bugs || !bugs.length) {
-        bugs = [
-            {
-                title: "Infinite Loop Detected",
-                severity: 4,
-                _id: "1NF1N1T3"
-            },
-            {
-                title: "Keyboard Not Found",
-                severity: 3,
-                _id: "K3YB0RD"
-            },
-            {
-                title: "404 Coffee Not Found",
-                severity: 2,
-                _id: "C0FF33"
-            },
-            {
-                title: "Unexpected Response",
-                severity: 1,
-                _id: "G0053"
-            }
-        ]
-        utilService.saveToStorage(STORAGE_KEY, bugs)
-    }
-
-
-
 }

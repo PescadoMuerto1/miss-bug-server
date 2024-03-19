@@ -12,7 +12,6 @@ export const bugService = {
 const bugs = utilService.readJsonFile('data/bug.json')
 
 function query(filterBy) {
-    console.log(filterBy);
     let bugToReturn = bugs
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
@@ -24,7 +23,13 @@ function query(filterBy) {
     if (filterBy.label) {
         bugToReturn = bugToReturn.filter(({ labels }) => labels.includes(filterBy.label))
     }
-    // console.log(bugToReturn);
+    if (filterBy.sortBy) {
+        const { sortBy, sortDir } = filterBy
+        bugToReturn = bugToReturn.sort((a, b) => {
+            return a[sortBy] < b[sortBy] ?  -1 * sortDir : 1 * sortDir
+        })
+    }
+    console.log(filterBy);
     return Promise.resolve(bugToReturn)
 }
 
