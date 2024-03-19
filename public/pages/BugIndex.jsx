@@ -20,7 +20,7 @@ export function BugIndex() {
     function onSetFilter(fieldsToUpdate) {
         console.log(fieldsToUpdate);
         setFilterBy(prevFilter => {
-            // if (prevFilter.pageIdx !== undefined) prevFilter.pageIdx = 0
+            prevFilter.pageIdx = 0
             return { ...prevFilter, ...fieldsToUpdate }
         })
     }
@@ -82,8 +82,19 @@ export function BugIndex() {
             })
     }
 
+    function onChangePage(diff) {
+        let nextPageIdx = filterBy.pageIdx + diff
+        if (nextPageIdx < 0) nextPageIdx = 0
+        setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: nextPageIdx }))
+    }
+
     return (
         <main>
+            <section className="pagination">
+                <button onClick={() => onChangePage(-1)}>-</button>
+                <span>{filterBy.pageIdx + 1}</span>
+                <button onClick={() => onChangePage(1)}>+</button>
+            </section>
             <h3>Bugs App</h3>
             <main>
                 <BugFilter onSetFilter={onSetFilter} filterBy={filterBy} />

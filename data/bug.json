@@ -4,7 +4,11 @@
         "title": "A",
         "desc": "sdfsa",
         "severity": 44,
-        "createdAt": 1710853690483
+        "createdAt": 1710853690483,
+        "labels": [
+            "critical",
+            "dev-branch"
+        ]
     },
     {
         "_id": "eyyls",
@@ -42,7 +46,10 @@
         "title": "Cannot save a new car",
         "desc": "bug.desc",
         "severity": 0,
-        "createdAt": 1542107359454
+        "createdAt": 1542107359454,
+        "labels": [
+            "critical"
+        ]
     },
     {
         "_id": "abdf3",
